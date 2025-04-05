@@ -14,6 +14,11 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true })); // Allow handling FormData
 app.use(bodyParser.json());
 
+// แทนด้วยข้อมูลจาก LINE Developer Console
+const LINE_CHANNEL_ID = "2007207985";
+const LINE_CHANNEL_SECRET = "188370a3b1ecefda177877f2f87cabb0";
+const REDIRECT_URI = "http://toponpage.com/LineCallback"; // ต้องตรงกับที่ตั้งไว้ใน LINE Developer Console
+
 // ตั้งค่าการเชื่อมต่อกับ LINE
 const config = {
   channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
@@ -46,6 +51,61 @@ exports.lineBot = async (req, res) => {
       console.error(err);
       res.status(500).end();
     });
+};
+
+exports.saveUser = async (req, res) => {
+  res.send("save data");
+};
+exports.lineLogin = async (req, res) => {
+  const { code } = req.body;
+
+  if (!code) {
+    return res.status(400).json({ error: "Missing authorization code" });
+  }
+
+  try {
+    // 1. ขอ access token จาก LINE
+    const tokenRes = await fetch("https://api.line.me/oauth2/v2.1/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        grant_type: "authorization_code",
+        code,
+        redirect_uri: REDIRECT_URI,
+        client_id: LINE_CHANNEL_ID,
+        client_secret: LINE_CHANNEL_SECRET,
+      }),
+    });
+
+    const tokenData = await tokenRes.json();
+    if (tokenData.error) {
+      console.error("Error getting token:", tokenData);
+      return res
+        .status(500)
+        .json({ error: "Failed to get access token from LINE" });
+    }
+
+    const accessToken = tokenData.access_token;
+
+    // 2. ดึงข้อมูลโปรไฟล์ผู้ใช้
+    const profileRes = await fetch("https://api.line.me/v2/profile", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    const profile = await profileRes.json();
+
+    // ส่งกลับเฉพาะ userId (หรือจะส่ง displayName, pictureUrl ก็ได้)
+    res.json({
+      userId: profile.userId,
+      displayName: profile.displayName,
+      pictureUrl: profile.pictureUrl,
+    });
+  } catch (err) {
+    console.error("LINE login error:", err);
+    res.status(500).json({ error: "Internal server error" });
+  }
 };
 
 async function handleEvent(event) {

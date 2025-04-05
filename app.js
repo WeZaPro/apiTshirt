@@ -14,7 +14,7 @@ const controllerLineBot = require("./controllers/controller.webhook");
 
 const app = express();
 app.use(cors()); // 🔹 เปิดใช้งาน CORS
-const PORT = 5000;
+const PORT = 5002;
 
 // ตั้งค่า Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -26,6 +26,8 @@ app.get("/", (req, res) => {
 
 //Webhook linebot
 app.post("/webhook", controllerLineBot.lineBot);
+app.post("/lineLogin", controllerLineBot.lineLogin);
+app.post("/save-user", controllerLineBot.saveUser);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
