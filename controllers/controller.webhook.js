@@ -16,13 +16,14 @@ app.use(bodyParser.urlencoded({ extended: true })); // Allow handling FormData
 app.use(bodyParser.json());
 
 // แทนด้วยข้อมูลจาก LINE Developer Console
-const LINE_CLIENT_ID = process.env.LINE_CLIENT_ID;
-const LINE_CLIENT_SECRET = process.env.LINE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.LINE_REDIRECT_URI;
+const LINE_CLIENT_ID = "2007207985"; //process.env.LINE_CLIENT_ID;
+const LINE_CLIENT_SECRET = "188370a3b1ecefda177877f2f87cabb0"; //process.env.LINE_CLIENT_SECRET;
+const REDIRECT_URI = "https://api.toponpage.com/api/auth/line/callback"; //process.env.LINE_REDIRECT_URI;
 // ตั้งค่าการเชื่อมต่อกับ LINE
 const config = {
-  channelAccessToken: process.env.LINE_CHANNEL_ACCESS_TOKEN,
-  channelSecret: process.env.LINE_CHANNEL_SECRET,
+  channelAccessToken:
+    "+LhzvgPuLx2kLVSiuBL7urbD4dq4LYruwMH5uo9udb4qZQajCNI3aAXyXv7/Yt8dI99W4WwAUU2WMCZX0o28CW9E2+22lkS9PtuiO5lFDpIK2z3YkIrJGD/pLXzpWAsOU0/1Asx/YPHuNzxbuaKURwdB04t89/1O/w1cDnyilFU=", //process.env.LINE_CHANNEL_ACCESS_TOKEN,
+  channelSecret: "fccc9748409dc9de291332018c57f42b", //process.env.LINE_CHANNEL_SECRET,
 };
 
 const client = new line.Client(config);
