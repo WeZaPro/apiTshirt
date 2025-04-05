@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 app.post("/webhook", controllerLineBot.lineBot);
 app.get("/api/auth/line/login", controllerLineBot.lineLogin);
 app.get("/api/auth/line/callback", controllerLineBot.callback);
-app.post("/api/ave-user", controllerLineBot.saveUser);
+app.post("/api/save-user", controllerLineBot.saveUser);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
