@@ -85,7 +85,7 @@ exports.callback = async (req, res) => {
 
     // ส่งไปที่ frontend
     res.redirect(
-      `${process.env.LINE_FRONTEND_URI}/line-success?displayName=${userProfile.displayName}&pictureUrl=${userProfile.pictureUrl}`
+      `https://toponpage.com/line-success?displayName=${userProfile.displayName}&pictureUrl=${userProfile.pictureUrl}`
     );
   } catch (err) {
     console.error(err.response?.data || err.message);
