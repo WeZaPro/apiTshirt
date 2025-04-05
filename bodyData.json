@@ -1,0 +1,21 @@
+{
+  "data": [
+    {
+      "custom_data": {
+        "currency": "THB",
+        "value": 1200,
+        "content_name": "Premium Membership",
+        "content_category": "Subscription",
+        "name": "John Doe",
+        "email": "john.doe@example.com",
+        "phone": "+66891234567"
+      },
+      "user_data": {
+        "client_user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+        "client_ip_address": "223.204.238.141",
+        "fbp": "fb.2.1692626446155.1275228751",
+        "fbc": "fb.1.1692626446155.1275228751"
+      }
+    }
+  ]
+}
